@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <link rel="stylesheet" href=""{{ url_for('static', filename='base.css') }}>
+</head>
+
+
+
+
+<head>
+	<style>
+		/* Existing styles for all elements */
+
+* {
+    background-color: #b18904; /* Dark mustard yellow */
+    color: #2a2a2a; /* Charcoal gray */
+    font-family: "Courier New", monospace; /* Retro monospace font */
+}
+
+header {
+    background-color: #ff6f61; /* Bright red-orange background for the header */
+    padding: 10px; /* Add padding for visual separation */
+}
+
+h1 {
+    color: #fff; /* White text for the header */
+    background-color: transparent; /* No background for h1 */
+}
+
+button {
+    color: #fff; /* White text for buttons */
+    font-size: 20px; /* Slightly larger font size */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Wider padding */
+    margin: 10px;
+    background-color: #ff6f61; /* Bright red-orange for button background */
+    border: 2px solid #8b0000; /* Dark red border */
+    border-radius: 15px; /* Rounded corners */
+}
+
+
+button:hover {
+    background-color: #8b0000; /* Dark red on button hover */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ff6f61; /* Red-orange box shadow on focus */
+}
+
+img {
+    width: 250px; /* Reduced image size for better alignment */
+    height: 250px; /* Reduced image size for better alignment */
+    background-color: transparent; /* No background for images */
+}
+
+/* Define a disco effect animation for the HTML background */
+@keyframes discoBackground {
+    0% {
+        background-color: #ff6f61; /* Start with red-orange */
+    }
+    25% {
+        background-color: #f6d446; /* Yellow */
+    }
+    50% {
+        background-color: #6aff61; /* Green */
+    }
+    75% {
+        background-color: #6172ff; /* Blue */
+    }
+    100% {
+        background-color: #ff61f5; /* Pink */
+    }
+}
+
+/* Apply the animation to the header and buttons */
+header.disco-active {
+    animation: discoBackground 1.5s infinite;
+}
+
+button.disco-active {
+    animation: discoBackground 1.5s infinite;
+}
+
+/* Star Wars theme */
+.star-wars-theme {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    font-family: 'Star Jedi', 'Courier New', monospace; /* Use a Star Wars-style font */
+}
+
+.star-wars-theme button {
+    background-color: #000; /* Black background for buttons */
+    color: #ffdf00; /* Yellow text for buttons */
+    border: 2px solid #ffdf00; /* Yellow border for buttons */
+}
+
+.star-wars-theme button:hover {
+    background-color: #ffdf00; /* Yellow on button hover */
+    color: #000; /* Black text on button hover */
+}
+
+
+/* Apply the Star Wars theme to header and all elements */
+.star-wars-theme header,
+.star-wars-theme * {
+    background-color: #000; /* Black background for header and all elements */
+    color: #ffdf00; /* White text for header and all elements excluding crawl */
+}
+
+/* Star Wars opening crawl animation */
+/* Define the crawl animation */
+.crawl {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
+    color: #ffdf00;
+    animation: crawl 30s linear;
+    animation-fill-mode: forwards;
+    text-align: center;
+    font-family: 'Star Jedi', sans-serif; /* Apply a Star Wars-style font */
+    display: none; /* Initially, hide the crawl animation */
+}
+
+.crawl p {
+    margin: 0;
+    padding: 10px;
+    font-size: 24px; /* Adjust the font size as needed */
+    line-height: 1.5;
+    text-transform: uppercase; /* Uppercase the text for a Star Wars effect */
+    letter-spacing: 4px; /* Increase letter spacing for the crawl effect */
+}
+
+/* Define the active class to show the crawl animation */
+.crawl.active {
+    display: block;
+}
+
+/* Keyframes for the crawl animation */
+@keyframes crawl {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+
+
+
+
+
+	
+	</style>
+</head>
+
+<body>
+    <header>
+        <h1>UV Light Controller</h1>
+    </header>
+    <section>
+        <a href="LightOn.html">
+            <button type="button">Turn on light</button> 
+
+        </a>
+        <a href="base.html">
+            <button type="button">Turn off light</button>
+        </a>
+    </section>
+
+    <section>
+        <a href="TakePhoto.html">
+            <button type="button">Take a photo</button>
+        </a>
+        <a href="TakePhotoWithLight.html">
+            <button type="button">Take a photo (Auto Flash)</button>
+        </a>
+    </section>
+
+    <section>
+        <a href="Comp2.html">
+            <button type="button">Compare 2 photos</button>
+        </a>
+        <a href="Comp2Invert.html">
+            <button type="button">Compare 2 photos inverted</button>
+        </a>
+    </section>
+<section>
+    <img id="image1" src="" alt="Failed to load img">       
+    <img id="image2" src="" alt="Failed to load img">
+</section>
+
+<section>
+    <img id="subimage" src="" alt="Failed to load img">
+    <img id="negsubimage" src="" alt="Failed to load img">
+</section>
+
+<script>
+    // Get references to the image elements by their IDs
+    const image1 = document.getElementById("image1");
+    const image2 = document.getElementById("image2");
+    const subimage = document.getElementById("subimage");
+    const negsubimage = document.getElementById("negsubimage");
+
+    // Generate a timestamp to use as a cache buster
+    const timestamp = new Date().getTime();
+
+    // Set new image sources with the timestamp as a query parameter
+    image1.src = `{{ url_for('static', filename='image1.jpg') }}?v=${timestamp}`;
+    image2.src = `{{ url_for('static', filename='image2.jpg') }}?v=${timestamp}`;
+    subimage.src = `{{ url_for('static', filename='subimage.jpg') }}?v=${timestamp}`;
+    negsubimage.src = `{{ url_for('static', filename='negsubimage.jpg') }}?v=${timestamp}`;
+</script>
+
+  
+
+    <!-- Button to play the disco effect -->
+    <button id="discoButton" type="button">Disco Theme</button>
+
+    <!-- Button to switch to Star Wars theme -->
+    <button id="starWarsButton" type="button">Star Wars Theme</button>
+
+    <div class="crawl">
+        <p>
+             It is a period of civil wars in the galaxy. A brave alliance of underground freedom fighters has challenged the tyranny and oppression of the awesome GALACTIC EMPIRE.
+
+Striking from a fortress hidden among the billion stars of the galaxy, rebel spaceships have won their first victory in a battle with the powerful Imperial Starfleet. The EMPIRE fears that another defeat could bring a thousand more solar systems into the rebellion, and Imperial control over the galaxy would be lost forever.
+
+To crush the rebellion once and for all, the EMPIRE is constructing a sinister new battle station. Powerful enough to destroy an entire planet, its completion spells certain doom for the champions of freedom.
+        </p>
+        <!-- Continue with more paragraphs -->
+    </div>
+
+    <script src="base.js"></script>
+    <script>
+		document.addEventListener("DOMContentLoaded", function () {
+    const discoButton = document.getElementById("discoButton");
+    const starWarsButton = document.getElementById("starWarsButton");
+    const htmlElement = document.documentElement;
+    const header = document.querySelector("header");
+    const buttons = document.querySelectorAll("button");
+    const crawl = document.querySelector(".crawl");
+
+    discoButton.addEventListener("click", function () {
+        // Start the disco effect
+        header.classList.add("disco-active");
+        buttons.forEach(button => {
+            button.classList.add("disco-active");
+        });
+
+        // Remove the disco effect after 3 seconds
+        setTimeout(function () {
+            header.classList.remove("disco-active");
+            buttons.forEach(button => {
+                button.classList.remove("disco-active");
+            });
+        }, 3000); // 3000 milliseconds (3 seconds)
+
+        // Apply Star Wars theme
+        htmlElement.classList.remove("star-wars-theme");
+
+        // Stop the crawl animation
+        crawl.classList.remove("active");
+    });
+
+    starWarsButton.addEventListener("click", function () {
+        // Remove disco effect
+        header.classList.remove("disco-active");
+        buttons.forEach(button => {
+            button.classList.remove("disco-active");
+        });
+
+        // Apply Star Wars theme
+        htmlElement.classList.add("star-wars-theme");
+
+        // Start the crawl animation
+        crawl.classList.add("active");
+    });
+});
+
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

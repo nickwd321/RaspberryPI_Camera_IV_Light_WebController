@@ -1,0 +1,143 @@
+/* Existing styles for all elements */
+
+* {
+    background-color: #b18904; /* Dark mustard yellow */
+    color: #2a2a2a; /* Charcoal gray */
+    font-family: "Courier New", monospace; /* Retro monospace font */
+}
+
+header {
+    background-color: #ff6f61; /* Bright red-orange background for the header */
+    padding: 10px; /* Add padding for visual separation */
+}
+
+h1 {
+    color: #fff; /* White text for the header */
+    background-color: transparent; /* No background for h1 */
+}
+
+button {
+    color: #fff; /* White text for buttons */
+    font-size: 20px; /* Slightly larger font size */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Wider padding */
+    margin: 10px;
+    background-color: #ff6f61; /* Bright red-orange for button background */
+    border: 2px solid #8b0000; /* Dark red border */
+    border-radius: 15px; /* Rounded corners */
+}
+
+
+button:hover {
+    background-color: #8b0000; /* Dark red on button hover */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ff6f61; /* Red-orange box shadow on focus */
+}
+
+img {
+    width: 250px; /* Reduced image size for better alignment */
+    height: 250px; /* Reduced image size for better alignment */
+    background-color: transparent; /* No background for images */
+}
+
+/* Define a disco effect animation for the HTML background */
+@keyframes discoBackground {
+    0% {
+        background-color: #ff6f61; /* Start with red-orange */
+    }
+    25% {
+        background-color: #f6d446; /* Yellow */
+    }
+    50% {
+        background-color: #6aff61; /* Green */
+    }
+    75% {
+        background-color: #6172ff; /* Blue */
+    }
+    100% {
+        background-color: #ff61f5; /* Pink */
+    }
+}
+
+/* Apply the animation to the header and buttons */
+header.disco-active {
+    animation: discoBackground 1.5s infinite;
+}
+
+button.disco-active {
+    animation: discoBackground 1.5s infinite;
+}
+
+/* Star Wars theme */
+.star-wars-theme {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    font-family: 'Star Jedi', 'Courier New', monospace; /* Use a Star Wars-style font */
+}
+
+.star-wars-theme button {
+    background-color: #000; /* Black background for buttons */
+    color: #ffdf00; /* Yellow text for buttons */
+    border: 2px solid #ffdf00; /* Yellow border for buttons */
+}
+
+.star-wars-theme button:hover {
+    background-color: #ffdf00; /* Yellow on button hover */
+    color: #000; /* Black text on button hover */
+}
+
+
+/* Apply the Star Wars theme to header and all elements */
+.star-wars-theme header,
+.star-wars-theme * {
+    background-color: #000; /* Black background for header and all elements */
+    color: #ffdf00; /* White text for header and all elements excluding crawl */
+}
+
+/* Star Wars opening crawl animation */
+/* Define the crawl animation */
+.crawl {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
+    color: #ffdf00;
+    animation: crawl 30s linear;
+    animation-fill-mode: forwards;
+    text-align: center;
+    font-family: 'Star Jedi', sans-serif; /* Apply a Star Wars-style font */
+    display: none; /* Initially, hide the crawl animation */
+}
+
+.crawl p {
+    margin: 0;
+    padding: 10px;
+    font-size: 24px; /* Adjust the font size as needed */
+    line-height: 1.5;
+    text-transform: uppercase; /* Uppercase the text for a Star Wars effect */
+    letter-spacing: 4px; /* Increase letter spacing for the crawl effect */
+}
+
+/* Define the active class to show the crawl animation */
+.crawl.active {
+    display: block;
+}
+
+/* Keyframes for the crawl animation */
+@keyframes crawl {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+
+
+
